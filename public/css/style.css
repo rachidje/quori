@@ -132,6 +132,10 @@ small {
     margin-right: 5px;
 }
 
+.mr-10 {
+    margin-right: 10px;
+}
+
 .mr-20 {
     margin-right: 20px;
 }
@@ -142,6 +146,10 @@ small {
 
 .mb-20 {
     margin-bottom: 20px;
+}
+
+.ml-auto {
+    margin-left: auto;
 }
 
 /* Paddings */
@@ -161,6 +169,10 @@ small {
     padding-bottom: 20px;
 }
 
+.pb-30 {
+    padding-bottom: 30px;
+}
+
 .py-20 {
     padding-top: 20px;
     padding-bottom: 20px;
@@ -169,6 +181,11 @@ small {
 .py-50 {
     padding-top: 50px;
     padding-bottom: 50px;
+}
+
+.separator {
+    border-bottom: 1px solid var(--gray-light);
+    margin: 30px 0px;
 }
 
 /* GENERAL */
@@ -294,6 +311,18 @@ header {
     outline: 0;
     background-color: var(--gray-light);
     font-size: 16px;
+}
+
+/* Messages Flash */
+
+.flash {
+    padding: 20px;
+    text-align: center;
+    color: var(--primary-light);
+}
+
+.flash-success {
+    background-color: var(--success);
 }
 
 /* SIDEBAR */
