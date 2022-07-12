@@ -169,6 +169,10 @@ small {
     padding-bottom: 20px;
 }
 
+.pb-10 {
+    padding-bottom: 10px;
+}
+
 .pb-30 {
     padding-bottom: 30px;
 }
@@ -318,7 +322,7 @@ header {
 .flash {
     padding: 20px;
     text-align: center;
-    color: var(--primary-light);
+    color: white;
 }
 
 .flash-success {
