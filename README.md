@@ -3,12 +3,12 @@
 Quori est une application semblable au site officiel Quora
 Projet en symfony
 
-## Technologies utilisees
+## Technologies utilisées
 * Symfony
 * Twig
 * Doctrine
 
-## Persistence des donnees
+## Persistence des données
 * MySQL
 
 ## Fonctionnalites
@@ -16,3 +16,4 @@ Projet en symfony
 * Repondre aux questions des autres utilisateurs
 * Voter la pertinence des question et des reponses
 * Réinitialisation du mot de passe avec un système de token
+* Choix d'une photo de profil à l'inscription et pouvoir la modifer dans la page de profil
