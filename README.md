@@ -1,6 +1,6 @@
-# Quora Copy
+# Quori
 
-Quora est une application semblable au site officiel Quora
+Quori est une application semblable au site officiel Quora
 Projet en symfony
 
 ## Technologies utilisees
@@ -15,3 +15,4 @@ Projet en symfony
 * Poser une question
 * Repondre aux questions des autres utilisateurs
 * Voter la pertinence des question et des reponses
+* Réinitialisation du mot de passe avec un système de token
