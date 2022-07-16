@@ -144,6 +144,10 @@ small {
     margin-right: 50px;
 }
 
+.mb-10 {
+    margin-bottom: 10px;
+}
+
 .mb-20 {
     margin-bottom: 20px;
 }
@@ -280,6 +284,10 @@ small {
     border-radius: 50%;
 }
 
+.avatar-lg {
+    width: 60px;
+}
+
 .clickable {
     color: var(--primary);
     font-weight: var(--font-weight-semi-bold);
@@ -329,6 +337,10 @@ header {
     background-color: var(--success);
 }
 
+.flash-error {
+    background-color: var(--warning);
+}
+
 /* SIDEBAR */
 
 .sidebar {
@@ -364,12 +376,23 @@ header {
     border-bottom: 1px solid var(--gray);
 }
 
+.question-text, .question-response-text {
+    line-height: 30px;
+    white-space: pre-wrap;
+}
+
 .rating-up {
     color: var(--success);
 }
 
 .rating-down {
     color: var(--warning);
+}
+
+/* Profile */
+.profile-picture {
+    width: 150px;
+    border-radius: var(--border-radius);
 }
 
 /* FOOTER */

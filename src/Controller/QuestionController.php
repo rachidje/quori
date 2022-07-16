@@ -4,9 +4,15 @@ namespace App\Controller;
 
 use App\Entity\Comment;
 use App\Entity\Question;
+use App\Entity\Vote;
 use App\Form\CommentType;
 use App\Form\QuestionType;
+use App\Repository\CommentRepository;
+use App\Repository\QuestionRepository;
+use App\Repository\UserRepository;
+use App\Repository\VoteRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,8 +22,10 @@ class QuestionController extends AbstractController
 {
     
     #[Route('/question/ask', name: 'question_form')]
+    #[IsGranted('IS_AUTHENTICATED_REMEMBERED')]
     public function ask(Request $request, EntityManagerInterface $em): Response
     {
+        $user = $this->getUser();
         $question = new Question();
 
         $formQuestion = $this->createForm(QuestionType::class, $question);
@@ -26,6 +34,7 @@ class QuestionController extends AbstractController
         if($formQuestion->isSubmitted() && $formQuestion->isValid()) {
             $question->setNbResponse(0)
                     ->setRating(0)
+                    ->setAuthor($user)
                     ->setCreatedAt(new \DateTimeImmutable());
 
             $em->persist($question);
@@ -41,38 +50,73 @@ class QuestionController extends AbstractController
     }
 
     #[Route('/question/{id}', name: 'question_show')]
-    public function show(Request $request, Question $question, EntityManagerInterface $em) : Response {
-        
-        $comment = new Comment();
-        $commentForm = $this->createForm(CommentType::class, $comment);
-        $commentForm->handleRequest($request);
+    public function show(Request $request, QuestionRepository $questionRepo, int $id, EntityManagerInterface $em) : Response {
 
-        if($commentForm->isSubmitted() && $commentForm->isValid()) {
-            $comment->setCreatedAt(new \DateTimeImmutable())
-                    ->setRating(0)
-                    ->setQuestion($question);
+        $question = $questionRepo->findWithCommentsAuthors($id);
 
-            $question->setNbResponse($question->getNbResponse() + 1);
+        $options = [
+            'question' => $question
+        ];
 
-            $em->persist($comment);
-            $em->flush();
+        $user = $this->getUser();
 
-            $this->addFlash('success', 'Votre réponse a été publiée.');
-            return $this->redirect($request->getUri());
+        if($user) {
+            $comment = new Comment();
+            $commentForm = $this->createForm(CommentType::class, $comment);
+            $commentForm->handleRequest($request);
+
+            if($commentForm->isSubmitted() && $commentForm->isValid()) {
+                $comment->setCreatedAt(new \DateTimeImmutable())
+                        ->setRating(0)
+                        ->setAuthor($user)
+                        ->setQuestion($question);
+
+                $question->setNbResponse($question->getNbResponse() + 1);
+
+                $em->persist($comment);
+                $em->flush();
+
+                $this->addFlash('success', 'Votre réponse a été publiée.');
+                return $this->redirect($request->getUri());
+            }
+            $options['form'] = $commentForm->createView();
         }
 
-
-
-        return $this->render('question/show.html.twig', [
-            'question' => $question,
-            'form' => $commentForm->createView(),
-        ]);
+        return $this->render('question/show.html.twig', $options);
     }
 
     #[Route('/question/rating/{id}/{score}', name: 'question_rating')]
-    public function questionRating(Question $question, int $score, EntityManagerInterface $em, Request $request)
+    #[IsGranted('IS_AUTHENTICATED_REMEMBERED')]
+    public function questionRating(Question $question, int $score, EntityManagerInterface $em, Request $request, VoteRepository $voteRepo)
     {
-        $question->setRating($question->getRating() + $score);
+        $user = $this->getUser();
+
+        if($user !== $question->getAuthor()) {
+            $vote = $voteRepo->findOneBy([
+                'author' => $user,
+                'question' => $question
+            ]);
+
+            if($vote) {
+                if(($vote->getIsLiked() && $score > 0) || (!$vote->getIsLiked() && $score < 0)){
+                    $em->remove($vote);
+                    $question->setRating($question->getRating() + ($score > 0 ? -1 : 1));
+                } else {
+                    $vote->setIsLiked(!$vote->getIsLiked());
+                    $question->setRating($question->getRating() + ($score > 0 ? 2 : -2));
+                }
+            } else {
+                $vote = new Vote();
+                $vote->setAuthor($user)
+                    ->setQuestion($question)
+                    ->setIsLiked($score > 0 ? true : false);
+
+                $em->persist($vote);
+                $question->setRating($question->getRating() + $score);
+            }
+
+        }
+
         $em->flush();
 
 
@@ -81,9 +125,37 @@ class QuestionController extends AbstractController
     }
 
     #[Route('/comment/rating/{id}/{score}', name: 'comment_rating')]
-    public function commentRating(Comment $comment, int $score, EntityManagerInterface $em, Request $request)
+    #[IsGranted('IS_AUTHENTICATED_REMEMBERED')]
+    public function commentRating(Comment $comment, int $score, EntityManagerInterface $em, Request $request, VoteRepository $voteRepo)
     {
-        $comment->setRating($comment->getRating() + $score);
+        $user = $this->getUser();
+
+        if($user !== $comment->getAuthor()) {
+            $vote = $voteRepo->findOneBy([
+                'author' => $user,
+                'comment' => $comment
+            ]);
+
+            if($vote) {
+                if(($vote->getIsLiked() && $score > 0) || (!$vote->getIsLiked() && $score < 0)){
+                    $em->remove($vote);
+                    $comment->setRating($comment->getRating() + ($score > 0 ? -1 : 1));
+                } else {
+                    $vote->setIsLiked(!$vote->getIsLiked());
+                    $comment->setRating($comment->getRating() + ($score > 0 ? 2 : -2));
+                }
+            } else {
+                $vote = new Vote();
+                $vote->setAuthor($user)
+                    ->setComment($comment)
+                    ->setIsLiked($score > 0 ? true : false);
+
+                $em->persist($vote);
+                $comment->setRating($comment->getRating() + $score);
+            }
+
+        }
+
         $em->flush();
 
 

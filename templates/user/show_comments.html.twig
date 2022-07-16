@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Mes reponses
+{% endblock title %}
+
+{% block body %}
+    <div class="block mb-20">
+        <h3 class="pb-30">Mes reponses</h3>
+        <ul>
+            {% for comment in app.user.comments %}
+                <li class="pb-30">{{ comment.content|slice(0, 60) }} {{ comment.content | length >= 61 ? '...' : '' }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock body %}

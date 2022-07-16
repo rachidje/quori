@@ -16,7 +16,7 @@
 
             <div class="form-row">
                 <label for="password">Email</label>
-                <input type="text" name="_password" id="password">
+                <input type="password" name="_password" id="password">
             </div>
 
             <div class="form-row">
@@ -32,7 +32,17 @@
                     <li>{{ error.messageKey | trans(error.messageData, 'security') }}</li>
                 </ul>            
             {% endif %}
-            <button class="btn btn-primary">Connexion</button>
+            <div class="d-flex flex-row">
+                <button class="btn btn-primary mr-10">Connexion</button>
+                <div class="d-flex flex-column">
+                    <small>
+                        <a href="{{ path('signup') }}">Vous n'avez pas de compte?</a>
+                    </small>
+                    <small>
+                        <a href="{{ path('reset_password_request') }}">mot de passe oublie ?</a>
+                    </small>
+                </div>
+            </div>
         </form>
     </div>
 {% endblock body %}
