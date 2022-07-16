@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\ResetPasswordRepository;
 use App\Repository\UserRepository;
+use App\Service\UploaderPicture;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -35,7 +36,7 @@ class SecurityController extends AbstractController
     }
 
     #[Route('/signup', name: 'signup')]
-    public function signup(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher, UserAuthenticatorInterface $userAuthenticator, MailerInterface $mailer): Response
+    public function signup(UploaderPicture $uploaderPicture, Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher, UserAuthenticatorInterface $userAuthenticator, MailerInterface $mailer): Response
     {
         $user = new User();
         $userForm = $this->createForm(UserType::class, $user);
@@ -44,6 +45,9 @@ class SecurityController extends AbstractController
         if($userForm->isSubmitted() && $userForm->isValid()){
             $hash = $passwordHasher->hashPassword($user, $user->getPassword());
             $user->setPassword($hash);
+
+            $picture = $userForm->get('pictureFile')->getData();
+            $user->setPicture($uploaderPicture->uploadProfileImage($picture));
 
             $em->persist($user);
             $em->flush();
@@ -108,7 +112,7 @@ class SecurityController extends AbstractController
 
         $emailForm->handleRequest($request);
         if($emailForm->isSubmitted() && $emailForm->isValid()) {
-            if(false === !$limiter->consume(1)->isAccepted()) {
+            if(!$limiter->consume(1)->isAccepted()) {
                 $this->addFlash('error', 'Vous devez attendre 1 heure pour refaire une demande.');
                 return $this->redirectToRoute('login');
             }
@@ -157,7 +161,7 @@ class SecurityController extends AbstractController
 
         $limiter = $passwordRecoveryLimiter->create($request->getClientIp());
 
-        if(false === !$limiter->consume(1)->isAccepted()) {
+        if(!$limiter->consume(1)->isAccepted()) {
             $this->addFlash('error', 'Vous devez attendre 1 heure pour refaire une demande.');
             return $this->redirectToRoute('login');
         }
