@@ -15,6 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security\UserAuthenticator;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
@@ -47,6 +48,9 @@ class SecurityController extends AbstractController
             $user->setPassword($hash);
 
             $picture = $userForm->get('pictureFile')->getData();
+            // if(!$picture) {
+            //         $picture = new UploadedFile($this->getParameter('profile.folder') . '/no_picture.jpeg', 'no_picture.jpeg', 'image/jpeg');
+            // }
             $user->setPicture($uploaderPicture->uploadProfileImage($picture));
 
             $em->persist($user);
