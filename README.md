@@ -15,10 +15,10 @@ Projet en symfony
 ## Persistence des données
 * MySQL
 
-## Fonctionnalites
+## Fonctionnalités
 * Poser une question
-* Repondre aux questions des autres utilisateurs
-* Voter la pertinence des question et des reponses
+* Répondre aux questions des autres utilisateurs
+* Voter la pertinence des question et des réponses
 * Réinitialisation du mot de passe avec un système de token
-* Choix d'une photo de profil à l'inscription et pouvoir la modifer dans la page de profil
+* Choix d'une photo de profil à l'inscription et pouvoir la modifier dans la page de profil
 * Barre de recherche
