@@ -7,6 +7,8 @@ Projet en symfony
 * Symfony
 * Twig
 * Doctrine
+* SASS
+* Webpack Encore
 
 ## Persistence des données
 * MySQL
@@ -17,3 +19,4 @@ Projet en symfony
 * Voter la pertinence des question et des reponses
 * Réinitialisation du mot de passe avec un système de token
 * Choix d'une photo de profil à l'inscription et pouvoir la modifer dans la page de profil
+* Barre de recherche
