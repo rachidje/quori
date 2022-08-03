@@ -39,6 +39,16 @@ class QuestionRepository extends ServiceEntityRepository
         }
     }
 
+    public function findBySearch(string $search) {
+        return $this->createQueryBuilder('q')
+                ->select('q.title, q.id')
+                ->where('q.title LIKE :search')
+                ->setParameter('search', "%{$search}%")
+                ->getQuery()
+                ->getResult()
+                ;
+    }
+
     public function getQuestionsWithAuthors() {
         return $this->createQueryBuilder('q')
                     ->leftJoin('q.author', 'a')

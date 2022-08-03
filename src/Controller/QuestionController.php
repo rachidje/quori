@@ -49,6 +49,12 @@ class QuestionController extends AbstractController
         ]);
     }
 
+    #[Route('/question/search/{search}', name: 'question_search')]
+    public function questionSearch(string $search, QuestionRepository $questionRepo) {
+        $questions = $questionRepo->findBySearch($search);
+        return $this->json(json_encode($questions));
+    }
+
     #[Route('/question/{id}', name: 'question_show')]
     public function show(Request $request, QuestionRepository $questionRepo, int $id, EntityManagerInterface $em) : Response {
 

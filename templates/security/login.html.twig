@@ -15,7 +15,12 @@
             </div>
 
             <div class="form-row">
-                <label for="password">Email</label>
+                <div class="d-flex flex-row-nowrap justify-content-between">
+                    <label for="password">Mot de passe</label>
+                    <small>
+                        <a href="{{ path('reset_password_request') }}">Mot de passe oublié ?</a>
+                    </small>
+                </div>
                 <input type="password" name="_password" id="password">
             </div>
 
@@ -32,16 +37,11 @@
                     <li>{{ error.messageKey | trans(error.messageData, 'security') }}</li>
                 </ul>            
             {% endif %}
-            <div class="d-flex flex-row">
+            <div class="d-flex flex-row align-items-center">
                 <button class="btn btn-primary mr-10">Connexion</button>
-                <div class="d-flex flex-column">
-                    <small>
-                        <a href="{{ path('signup') }}">Vous n'avez pas de compte?</a>
-                    </small>
-                    <small>
-                        <a href="{{ path('reset_password_request') }}">mot de passe oublie ?</a>
-                    </small>
-                </div>
+                <small>
+                    <a href="{{ path('signup') }}">Vous n'avez pas de compte?</a>
+                </small>
             </div>
         </form>
     </div>

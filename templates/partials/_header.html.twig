@@ -1,15 +1,16 @@
-<header class="d-flex flex-row-nowrap justify-content-center p20">
-    <div class="content flex-fill d-flex flex-row-nowrap align-items-center justify-content-between">
+<header class="d-flex flex-row-nowrap justify-content-center">
+    <div class="content flex-fill d-flex flex-row-nowrap align-items-center justify-content-between p-20">
         <a class="header-logo" href="{{ path('home') }}">
-            <img src="{{ asset('images/logo.png') }}" alt="Logo" >
+            <img src="{{ asset('build/images/logo.png') }}" alt="Logo">
         </a>
-        <div class="header-search p-10 flex-fill">
-            <i class="fas fa-search"></i>
-            <input type="text" name="" id="">
+        <div id="search" class="header-search p-10 flex-fill d-flex flex-row align-items-center">
+            <i class="fas fa-search mr-10"></i>
+            <input @input="updateInput" ref="input" type="text" name="" id="" class="flex-fill">
+            <img v-if="isLoading" src="{{ asset('build/images/loader.gif') }}" alt="Loader" class="header-search-loading">
         </div>
 
         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-            <div class="d-flex flex-row-nowrap align-items-center">
+            <div class="d-flex flex-row-nowrap align-items-center xs-hide">
                 <a href="{{ path('current_user') }}">
                     <img src="{{ asset(app.user.picture) }}" alt="profile picture" class="avatar avatar-lg mr-10">
                 </a>
@@ -18,13 +19,23 @@
                 </small>
             </div>
         {% else %}
-            <div>
+            <div class="xs-hide">
                 <a href="{{ path('signup') }}" class="btn btn-primary mr-5">Inscription</a>
                 <a href="{{ path('login') }}" class="btn btn-primary-connexion">Connexion</a>
             </div>
         {% endif %}
-
-        <div>
+        <div class="show-xs burger">
+            <i class="fas fa-bars"></i>
         </div>
     </div>
 </header>
+
+<div class="menu-xs d-flex flex-column hidden">
+    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+        <a href="{{ path('current_user') }}">Profil</a>
+        <a href="{{ path('logout') }}">Déconnexion</a>
+    {% else %}
+        <a href="{{ path('signup') }}" class="btn btn-primary mr-5">Inscription</a>
+        <a href="{{ path('login') }}" class="btn btn-primary-stroke">Connexion</a>
+    {% endif %}
+</div>
