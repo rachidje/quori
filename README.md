@@ -8,7 +8,7 @@ Projet en symfony
 * Twig
 * Doctrine
 * SASS
-* ![alt text](https://cdn.worldvectorlogo.com/logos/typescript-2.svg) Typescript
+* <img src="https://cdn.worldvectorlogo.com/logos/typescript-2.svg" width="50" alt="accessibility text"> Typescript
 * VueJS 3
 * Webpack Encore
 
