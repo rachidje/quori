@@ -8,6 +8,8 @@ Projet en symfony
 * Twig
 * Doctrine
 * SASS
+* ![alt text](https://cdn.worldvectorlogo.com/logos/typescript-2.svg) Typescript
+* VueJS 3
 * Webpack Encore
 
 ## Persistence des données
