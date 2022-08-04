@@ -49,9 +49,15 @@ class QuestionController extends AbstractController
         ]);
     }
 
-    #[Route('/question/search/{search}', name: 'question_search')]
-    public function questionSearch(string $search, QuestionRepository $questionRepo) {
-        $questions = $questionRepo->findBySearch($search);
+    #[Route('/question/search/{search}', name: 'question_search', priority: 1)]
+    public function questionSearch(string $search = "none", QuestionRepository $questionRepo) {
+        
+        if($search === "none") {
+            $questions = [];
+        } else {
+            $questions = $questionRepo->findBySearch($search);
+        }
+
         return $this->json(json_encode($questions));
     }
 

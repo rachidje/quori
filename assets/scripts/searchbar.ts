@@ -1,6 +1,9 @@
 import { createApp } from "vue";
 
 createApp({
+    compilerOptions : {
+        delimiters: ["${", "}$"]
+    },
     data() {
         return {
             timeout: null,
@@ -12,17 +15,23 @@ createApp({
         updateInput(event: KeyboardEvent) {
             clearTimeout(this.timeout);
             this.timeout = setTimeout(async () => {
-                this.isLoading = true;
-                try {
-                    const response = await fetch(`/question/search/${ this.$refs.input.value }`);
-                    const body = await response.json();
-                    this.questions = JSON.parse(body);
-                    this.isLoading = false
-                    console.log(body);
-                } catch (error) {
-                    this.isLoading = false;
-                    this.questions = null
+                const value = this.$refs.input.value;
+                if(value?.length) {
+                    try {
+                        this.isLoading = true;
+                        const response = await fetch(`/question/search/${ value }`);
+                        const body = await response.json();
+                        this.questions = JSON.parse(body);
+                        this.isLoading = false
+                        console.log(body);
+                    } catch (error) {
+                        this.isLoading = false;
+                        this.questions = null
+                    }
+                } else {
+                    this.questions = null;
                 }
+                
                 console.log(this.$refs.input.value);
             }, 1000);
         }
