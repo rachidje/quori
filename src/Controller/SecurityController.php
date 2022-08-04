@@ -54,12 +54,12 @@ class SecurityController extends AbstractController
             $em->persist($user);
             $em->flush();
 
-            $this->addFlash('success', 'Bienvenue sur Quora');
+            $this->addFlash('success', 'Bienvenue sur Quori');
 
             // Envoi de l'email de bienvenue
             $email = new TemplatedEmail();
             $email->to($user->getEmail())
-                    ->subject('Bienvenue a Quora')
+                    ->subject('Bienvenue sur Quori')
                     ->htmlTemplate('@email_templates/welcome.html.twig')
                     ->context([
                         'username' => $user->getFirstname()

@@ -50,7 +50,7 @@ class QuestionController extends AbstractController
     }
 
     #[Route('/question/search/{search}', name: 'question_search', priority: 1)]
-    public function questionSearch(string $search = "none", QuestionRepository $questionRepo) {
+    public function questionSearch(QuestionRepository $questionRepo, string $search = "none") {
         
         if($search === "none") {
             $questions = [];
