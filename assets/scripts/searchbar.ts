@@ -31,8 +31,6 @@ createApp({
                 } else {
                     this.questions = null;
                 }
-                
-                console.log(this.$refs.input.value);
             }, 1000);
         }
     }
