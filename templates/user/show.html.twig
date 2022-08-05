@@ -32,7 +32,7 @@
     </div>
 
     <div class="block mb-20">
-        <h3 class="pb-30">Ces reponses</h3>
+        <h3 class="pb-30">Ces réponses</h3>
         <ul>
             {% for comment in user.comments %}
                 <li class="pb-30">{{ comment.content|slice(0, 60) }} {{ comment.content | length >= 61 ? '...' : '' }}</li>
