@@ -12,7 +12,10 @@
 
 .app-content {
     background-color: var(--gray-light);
-    padding: 20px;
+    padding: 30px;
+    border-radius: 30px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
     @include mixins.xs {
         padding: 10px;
     }
@@ -20,7 +23,7 @@
 
 .block {
     padding: 20px;
-    border-radius: var(--border-radius);
+    border-radius: 20px;
     background-color: white;
     box-shadow: var(--box-shadow);
 }
