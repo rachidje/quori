@@ -2,4 +2,4 @@ framework:
     mailer:
         dsn: '%env(MAILER_DSN)%'
         headers:
-            from: 'Quori <no-reply@quori.com>'
+            from: 'Quori <contact@rachidjeffali.com>'
