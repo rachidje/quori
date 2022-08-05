@@ -13,7 +13,9 @@ createApp({
     },
     methods: {
         updateInput(event: KeyboardEvent) {
-            clearTimeout(this.timeout);
+            if(this.timeout) {
+                clearTimeout(this.timeout);
+            }
             this.timeout = setTimeout(async () => {
                 const value = this.$refs.input.value;
                 if(value?.length) {
@@ -22,11 +24,10 @@ createApp({
                         const response = await fetch(`/question/search/${ value }`);
                         const body = await response.json();
                         this.questions = JSON.parse(body);
-                        this.isLoading = false
-                        console.log(body);
                     } catch (error) {
-                        this.isLoading = false;
                         this.questions = null
+                    } finally {
+                        this.isLoading = false;
                     }
                 } else {
                     this.questions = null;
