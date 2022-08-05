@@ -46,10 +46,12 @@ class SecurityController extends AbstractController
             $user->setPassword($hash);
 
             $picture = $userForm->get('pictureFile')->getData();
-            // if(!$picture) {
-            //         $picture = new UploadedFile($this->getParameter('profile.folder') . '/no_picture.jpeg', 'no_picture.jpeg', 'image/jpeg');
-            // }
-            $user->setPicture($uploaderPicture->uploadProfileImage($picture));
+
+            if(!$picture) {
+                $user->setPicture('profiles/no_picture.jpeg');
+            } else {
+                $user->setPicture($uploaderPicture->uploadProfileImage($picture));
+            }
 
             $em->persist($user);
             $em->flush();
