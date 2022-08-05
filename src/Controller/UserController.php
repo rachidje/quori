@@ -43,7 +43,7 @@ class UserController extends AbstractController
             }
 
             $em->flush();
-            $this->addFlash('success', 'Modifications enregistrees');
+            $this->addFlash('success', 'Modifications enregistrées');
         }
 
         return $this->render('user/index.html.twig', [

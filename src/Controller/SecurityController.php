@@ -143,7 +143,7 @@ class SecurityController extends AbstractController
                 // envoi de l'email
                 $resetEmail = new TemplatedEmail();
                 $resetEmail->to($email)
-                            ->subject('Demande de reinitialisation de mot de passe')
+                            ->subject('Demande de réinitialisation de mot de passe')
                             ->htmlTemplate('@email_templates/reset_password_request.html.twig')
                             ->context([
                                 'username' => $user->getFirstname(),
@@ -153,7 +153,7 @@ class SecurityController extends AbstractController
 
             }
 
-            $this->addFlash('success', 'Un email vous a ete envoye');
+            $this->addFlash('success', 'Un email vous a été envoyé');
             return $this->redirectToRoute('home');
         }
 
@@ -177,7 +177,7 @@ class SecurityController extends AbstractController
                 $resetPasswordRepo->remove($resetPassword, true);
             }
 
-            $this->addFlash('error', 'Votre demande a expire, veuillez la refaire.');
+            $this->addFlash('error', 'Votre demande a expiré, veuillez la refaire.');
             return $this->redirectToRoute('login');
         }
 
@@ -207,7 +207,7 @@ class SecurityController extends AbstractController
 
             $resetPasswordRepo->remove($resetPassword, true);
 
-            $this->addFlash('success', 'Votre mot de passe a ete reinitialise.');
+            $this->addFlash('success', 'Votre mot de passe a été réinitialisé.');
             return $this->redirectToRoute('login');
         }
 
