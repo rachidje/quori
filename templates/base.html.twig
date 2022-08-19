@@ -21,7 +21,7 @@
                 </div>
             {% endfor %}
        {% endfor %}
-        <div class="app-content flex-fill d-flex flex-row-nowrap justify-content-center">
+        <div class="app-content flex-fill d-flex flex-row-nowrap justify-content-center {{ app.request.get('_route') in ['login', 'signup'] ? 'login_bg' : '' }}">
             <div class="content-main content flex-fill d-flex flex-row-nowrap flex-column-xs">
                {{ include('partials/_sidebar.html.twig') }}
     
