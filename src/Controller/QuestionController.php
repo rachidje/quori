@@ -124,11 +124,10 @@ class QuestionController extends AbstractController
                 $em->persist($vote);
                 $question->setRating($question->getRating() + $score);
             }
-
+    
         }
-
+        
         $em->flush();
-
 
         $referer = $request->server->get('HTTP_REFERER');
         return $referer ? $this->redirect($referer) : $this->redirectToRoute('home');
