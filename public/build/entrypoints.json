@@ -2,21 +2,23 @@
   "entrypoints": {
     "app": {
       "js": [
-        "/build/runtime.aabb9aa3.js",
-        "/build/634.0f7414e7.js",
-        "/build/app.61646221.js"
+        "http://localhost:8080/build/runtime.js",
+        "http://localhost:8080/build/vendors-node_modules_webpack-dev-server_client_index_js_protocol_ws_3A_hostname_localhost_por-f86214.js",
+        "http://localhost:8080/build/vendors-node_modules_core-js_modules_es_object_to-string_js-node_modules_core-js_modules_es_p-bf4fb5.js",
+        "http://localhost:8080/build/app.js"
       ],
       "css": [
-        "/build/app.80c5a27c.css"
+        "http://localhost:8080/build/app.css"
       ]
     },
     "question": {
       "js": [
-        "/build/runtime.aabb9aa3.js",
-        "/build/question.bad158e3.js"
+        "http://localhost:8080/build/runtime.js",
+        "http://localhost:8080/build/vendors-node_modules_webpack-dev-server_client_index_js_protocol_ws_3A_hostname_localhost_por-f86214.js",
+        "http://localhost:8080/build/question.js"
       ],
       "css": [
-        "/build/question.6c487e3f.css"
+        "http://localhost:8080/build/question.css"
       ]
     }
   }
