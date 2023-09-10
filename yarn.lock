@@ -2682,6 +2682,11 @@
     "domutils" "^2.5.2"
     "entities" "^2.0.0"
 
+"htmx.org@^1.9.5":
+  "integrity" "sha512-YUMH1/zOe+75bZnSbtkqwK8wAoTJcgvwVA2W6CXoODBtsg2F9HJIPzM3vzosevrilpV6jLAR6nKapKypBs7v2A=="
+  "resolved" "https://registry.npmjs.org/htmx.org/-/htmx.org-1.9.5.tgz"
+  "version" "1.9.5"
+
 "http-deceiver@^1.2.7":
   "integrity" "sha512-LmpOGxTfbpgtGVxJrj5k7asXHCgNZp5nLfp+hWc8QQRqtb7fUy6kRY3BO1h9ddF6yIPYUARgxGOwB42DnxIaNw=="
   "resolved" "https://registry.npmjs.org/http-deceiver/-/http-deceiver-1.2.7.tgz"

@@ -129,8 +129,11 @@ class QuestionController extends AbstractController
         
         $em->flush();
 
-        $referer = $request->server->get('HTTP_REFERER');
-        return $referer ? $this->redirect($referer) : $this->redirectToRoute('home');
+        return $this->render('partials/_rating.html.twig', [
+            'from' => 'question',
+            'id' => $question->getId(),
+            'rating' => $question->getRating()
+        ]);
     }
 
     #[Route('/comment/rating/{id}/{score}', name: 'comment_rating')]
@@ -168,7 +171,10 @@ class QuestionController extends AbstractController
         $em->flush();
 
 
-        $referer = $request->server->get('HTTP_REFERER');
-        return $referer ? $this->redirect($referer) : $this->redirectToRoute('home');
+        return $this->render('partials/_rating.html.twig', [
+            'from' => 'comment',
+            'id' => $comment->getId(),
+            'rating' => $comment->getRating()
+        ]);
     }
 }

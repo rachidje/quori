@@ -1,11 +1,7 @@
-<div class="d-flex flex-column mr-20 align-items-center">
-    <a href="{{ path(from ~ '_rating', {id: id, score: 1}) }}" >
-        <i class="fas fa-arrow-up {{ rating > 0 ? 'rating-up' : '' }}"></i>
-    </a>
-        <p class="text-small {{ rating > 0 ? 'rating-up' : rating < 0 ? 'rating-down' : '' }}">
-            {{ rating }}
-        </p>
-    <a href="{{ path(from ~ '_rating', {id: id, score: -1}) }}" >
-        <i class="fas fa-arrow-down {{ rating < 0 ? 'rating-down' : '' }}"></i>
-    </a>
+<div id="{{"rating_" ~ from ~ "_" ~ id}}" hx-target="#{{"rating_" ~ from ~ "_" ~ id}}" class="d-flex flex-column mr-20 align-items-center">
+    <i hx-get="{{path(from ~ '_rating', {id: id, score: 1})}}" class="fas fa-arrow-up {{ rating > 0 ? 'rating-up' : '' }}"></i>
+    <p class="text-small {{ rating > 0 ? 'rating-up' : rating < 0 ? 'rating-down' : '' }}">
+        {{ rating }}
+    </p>
+    <i hx-get="{{path(from ~ '_rating', {id: id, score: -1})}}" class="fas fa-arrow-down {{ rating < 0 ? 'rating-down' : '' }}"></i>
 </div>
